@@ -11,7 +11,7 @@ from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 
 load_dotenv()
-# os.getenv("GOOGLE_API_KEY")
+
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def get_pdf_text(pdf_docs):
@@ -77,9 +77,9 @@ def user_input(user_question):
 
 def main():
     st.set_page_config("Multi PDF Chatbot", page_icon = ":scroll:")
-    st.header("Multi-PDF's 📚 - Chat Agent 🤖 ")
+    st.header("Multi-PDF's  - Chat Agent  ")
 
-    user_question = st.text_input("Ask a Question from the PDF Files uploaded .. ✍️📝")
+    user_question = st.text_input("Ask a Question from the PDF Files uploaded .. ")
 
     if user_question:
         user_input(user_question)
@@ -89,28 +89,21 @@ def main():
         st.image("img/Robot.jpg")
         st.write("---")
         
-        st.title("📁 PDF File's Section")
+        st.title(" PDF File's Section")
         pdf_docs = st.file_uploader("Upload your PDF Files & \n Click on the Submit & Process Button ", accept_multiple_files=True)
         if st.button("Submit & Process"):
-            with st.spinner("Processing..."): # user friendly message.
-                raw_text = get_pdf_text(pdf_docs) # get the pdf text
-                text_chunks = get_text_chunks(raw_text) # get the text chunks
-                get_vector_store(text_chunks) # create vector store
+            with st.spinner("Processing..."):
+                raw_text = get_pdf_text(pdf_docs) 
+                text_chunks = get_text_chunks(raw_text) 
+                get_vector_store(text_chunks) 
                 st.success("Done")
         
         st.write("---")
         st.image("img/gkj.jpg")
-        st.write("AI App created by @ Gurpreet Kaur")  # add this line to display the image
+        st.write("AI App created")  
 
 
-    st.markdown(
-        """
-        <div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #0E1117; padding: 15px; text-align: center;">
-            © <a href="https://github.com/gurpreetkaurjethra" target="_blank">Gurpreet Kaur Jethra</a> | Made with ❤️
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+
 
 if __name__ == "__main__":
     main()
